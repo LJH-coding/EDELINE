@@ -1,0 +1,11 @@
+train:
+  id: MiniGrid-MemoryS7-v0
+  size: 64
+  max_episode_steps: null
+  
+test:
+  id: ${..train.id}
+  size: ${..train.size}
+  max_episode_steps: null
+
+keymap: empty

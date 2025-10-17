@@ -1,0 +1,46 @@
+_target_: agent.AgentConfig
+
+world_model:
+  _target_: models.world_model.WorldModelConfig
+  harmony: True
+  denoiser:
+    _target_: models.diffusion.DenoiserConfig
+    sigma_data: 0.5
+    sigma_offset_noise: 0.3
+    num_autoregressive_steps: ${denoiser.training.num_autoregressive_steps}
+    inner_model:
+      _target_: models.diffusion.InnerModelConfig
+      img_channels: 3
+      num_steps_conditioning: 4
+      mamba_dim: ${agent.world_model.recurrent_embedding_module.mamba_config.d_model} # hidden embedding dim
+      cond_channels: 256 # same as DIAMOND
+      depths: [2,2,2,2]
+      channels: [64,64,64,64]
+      attn_depths: [0,0,0,0]
+
+  recurrent_embedding_module:
+    _target_: models.recurrent_embedding_module.RecurrentEmbeddingConfig
+    img_channels: ${agent.world_model.denoiser.inner_model.img_channels}
+    img_size: ${env.train.size}
+    cond_channels: 128 # same as DIAMOND
+    channels: [64,64,64,64]
+    down: [1,1,1,1]
+    mamba_config: 
+      d_state: 16
+      d_model: 512 # same as DIAMOND's lstm dim
+      n_layers: 3 # may want adjust this
+      expand_factor: 2
+      d_conv: 4
+
+  rew_end_model:
+    _target_: models.rew_end_model.RewEndModelConfig
+    mamba_dim: ${agent.world_model.recurrent_embedding_module.mamba_config.d_model}
+
+actor_critic:
+  _target_: models.actor_critic.ActorCriticConfig
+  lstm_dim: 512
+  img_channels: ${agent.world_model.denoiser.inner_model.img_channels}
+  img_size: ${env.train.size}
+  channels: [32,32,64,64]
+  down: [1,1,1,1]
+
