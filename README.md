@@ -6,15 +6,14 @@
 <img src='media/edeline.gif' width="100%"/>
 </div>
 
-Quick install to try our [pretrained world models](#try) using [miniconda](https://docs.anaconda.com/free/miniconda/miniconda-install/):
+Quick install using [miniconda](https://docs.anaconda.com/free/miniconda/miniconda-install/):
 
 >```bash
->git clone git@github.com:eloialonso/diamond.git
->cd diamond
->conda create -n diamond python=3.10
->conda activate diamond
+>git clone https://github.com/LJH-coding/EDELINE.git
+>cd EDELINE
+>conda create -n edeline python=3.10
+>conda activate edeline
 >pip install -r requirements.txt
->python src/play.py --pretrained
 >```
 
 **Warning**: Atari ROMs will be downloaded with the dependencies, which means that you acknowledge that you have the license to use them.
