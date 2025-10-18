@@ -2,9 +2,7 @@
 
 **TL;DR** EDELINE combines diffusion models with state space models to create a world model for reinforcement learning that overcomes memory limitations in previous approaches.
 
-<div align='center'>
-<img src='media/edeline.gif' width="100%"/>
-</div>
+![EDELINE Tasks](./media/edeline.gif)
 
 Quick install using [miniconda](https://docs.anaconda.com/free/miniconda/miniconda-install/):
 
